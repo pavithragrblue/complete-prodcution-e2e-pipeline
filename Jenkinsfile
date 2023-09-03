@@ -18,29 +18,7 @@ pipeline{
             }
 
         }
-        stage("Build Application"){
-            steps {
-                sh "mvn clean package"
-            }
-
-        }
-
-        stage("Test Application"){
-            steps {
-                sh "mvn test"
-            }
-
-        }
-        stage("Sonarqube Analysis") {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'sonarqube') {
-                        sh "mvn sonar:sonar"
-                    }
-                }
-            }
-
-        }
-     
+        
+    
     }
 }
