@@ -38,11 +38,10 @@ pipeline{
                     withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
                         sh "mvn sonar:sonar"
                     }
-                }
+                
             }
+       }
 
-        }
-
-    
+        }    
     }
 }
