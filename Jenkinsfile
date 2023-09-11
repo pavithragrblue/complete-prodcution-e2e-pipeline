@@ -32,5 +32,15 @@ stages{
             }
 
         }
+    stage("Sonarqube Analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
+                        sh "mvn sonar:sonar"
+                    }
+                }
+            }
+
+        }
        }
 }
