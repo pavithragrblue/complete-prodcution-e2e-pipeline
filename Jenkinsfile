@@ -8,7 +8,7 @@ pipeline{
         APP_NAME = "complete-prodcution-e2e-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "pavithragrblue"
-        DOCKER_PASS = 'dockertoken'
+        DOCKER_PASS = 'dckr_pat_XwqF9a3f7DZ5b_JDz1kWlRy8TfI '
         IMAGE_NAME = "${pavithragrblue}" + "/" + "${pipeline}"
         IMAGE_TAG = "${RELEASE}-${b82b9f3}"
         JENKINS_API_TOKEN = credentials("jenkinsapitoken")
