@@ -11,7 +11,7 @@ pipeline{
         DOCKER_PASS = 'dockertoken'
         IMAGE_NAME = "${pavithragrblue}" + "/" + "${pipeline}"
         IMAGE_TAG = "${RELEASE}-${b82b9f3}"
-        JENKINS_API_TOKEN = credentials("11e864191edc762a8d93fb7d7da18f37c9")
+        JENKINS_API_TOKEN = credentials("jenkinsapitoken")
 
     }
 stages{
@@ -42,16 +42,7 @@ stages{
             }
 
         }
-    stage("Sonarqube Analysis") {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
-                        sh "mvn sonar:sonar"
-                    }
-                }
-            }
-
-        }
+   
       stage("Build & Push Docker Image") {
             steps {
                 script {
