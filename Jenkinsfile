@@ -47,7 +47,7 @@ stages{
             steps {
                 script {
                     docker.withRegistry('',Dockertoken) {
-                        docker_image = docker.build "${Eiffelpic}"
+                        docker_image = docker.build "${pavithragrblue}"
                     }
 
                     docker.withRegistry('',Dockertoken) {
