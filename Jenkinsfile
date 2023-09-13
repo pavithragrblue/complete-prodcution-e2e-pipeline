@@ -8,7 +8,7 @@ pipeline{
         APP_NAME = "complete-prodcution-e2e-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "pavithragrblue"
-        DOCKER_PASS = 'dockertokens'
+        DOCKER_PASS = 'Dockertoken'
         IMAGE_NAME = "${pavithragrblue}" + "/" + "${pipeline}"
         IMAGE_TAG = "${RELEASE}-${b82b9f3}"
         JENKINS_API_TOKEN = credentials("jenkinsapitoken")
@@ -46,11 +46,11 @@ stages{
       stage("Build & Push Docker Image") {
             steps {
                 script {
-                    docker.withRegistry('',dockertokens) {
+                    docker.withRegistry('',Dockertoken) {
                         docker_image = docker.build "${Eiffelpic}"
                     }
 
-                    docker.withRegistry('',dockertokens) {
+                    docker.withRegistry('',Dockertoken) {
                         docker_image.push("${RELEASE}")
                         docker_image.push('latest')
                     }
