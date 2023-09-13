@@ -10,7 +10,7 @@ pipeline{
         DOCKER_USER = "pavithragrblue"
         DOCKER_PASS = 'Dockertoken'
         IMAGE_NAME = "${pavithragrblue}" + "/" + "${pipeline}"
-        IMAGE_TAG = "${RELEASE}-${b82b9f3}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
         JENKINS_API_TOKEN = credentials("jenkinsapitoken")
 
     }
