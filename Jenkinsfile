@@ -36,7 +36,7 @@ stages{
     stage("Deploy") {
             steps {
                 script {
-                    withAWS(credentials: 'AWS Credentials') {
+                    withAWS(credentials: 'AWS_credentials') {
                        sh 'aws ec2 describe-instances --region us-east-1'
                     
                     withKubeConfig(clusterName: 'DEV_cluster', contextName: 'arn:aws:eks:us-east-1:746816133431:cluster/DEV_cluster', credentialsId: 'kubeconfig', namespace: 'default', serverUrl: 'https://2DB487353827CA393967CD9B4EE9B3FF.sk1.us-east-1.eks.amazonaws.com') {
