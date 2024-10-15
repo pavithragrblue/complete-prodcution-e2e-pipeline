@@ -15,5 +15,10 @@ pipeline{
                 git branch: "CICD-Demo" , credentialsId: "pavithragrblue" , url: " https://github.com/pavithragrblue/complete-prodcution-e2e-pipeline.git"
             }
         }
+        stage("Build application"){
+            steps{
+                sh "mvn clean package"
+            }
+        }
     }
 }
