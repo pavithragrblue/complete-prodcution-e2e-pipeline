@@ -10,5 +10,10 @@ pipeline{
                 cleanWs()
             }
         }
+        stage("checkout to scm"){
+            steps{
+                git branch: "CICD-Demo" , credentialsId: "pavithragrblue" , url: " https://github.com/pavithragrblue/complete-prodcution-e2e-pipeline.git"
+            }
+        }
     }
 }
