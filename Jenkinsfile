@@ -1,24 +1,36 @@
 pipeline{
     agent any
-    tools{
-        jdk 'JDK 1.11'
-        maven 'Maven-3.9.6'
+    tools {
+        jdk 'Java17'
+        maven 'Maven3'
     }
     stages{
-        stage("cleanup workspace"){
-            steps{
+        stage("Cleanup Workspace"){
+            steps {
                 cleanWs()
             }
+
         }
-        stage("checkout to scm"){
-            steps{
-                git branch: "CICD-Demo" , credentialsId: "pavithragrblue" , url: " https://github.com/pavithragrblue/complete-prodcution-e2e-pipeline.git"
+    
+        stage("Checkout from SCM"){
+            steps {
+                git branch: 'main', credentialsId: 'pavithragrblue', url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
             }
+
         }
-        stage("Build application"){
-            steps{
+
+        stage("Build Application"){
+            steps {
+                sh "mvn clean package"
+            }
+
+        }
+
+        stage("Test Application"){
+            steps {
                 sh "mvn test"
             }
+
         }
     }
 }
