@@ -5,7 +5,7 @@ pipeline{
         maven 'Maven 3.8.8'
     }
     environment {
-        APP_NAME = "COMPLETE-E2E-APP-SUCCESS"
+        APP_NAME = "complete-e2e-app-success"
         RELEASE = "1.0.1"
         DOCKER_USER = "pavithragrblue"
         DOCKER_PASS = 'docker-login'
