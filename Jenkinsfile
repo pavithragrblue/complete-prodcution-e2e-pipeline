@@ -24,7 +24,7 @@ pipeline{
     
         stage("Checkout from SCM"){
             steps {
-                git branch: 'main', credentialsId: 'pavithragrblue', url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
+                git branch: 'CICD-Demo', credentialsId: 'pavithragrblue', url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
             }
 
         }
@@ -71,8 +71,7 @@ pipeline{
         stage("Trivy Scan") {
             steps {
                 script {
-		   bat ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image pavithragrblue/complete-e2e-app-success:latest --no-progress --scanners vuln --skip-dbs trivy-java-db --exit-code 0 --severity HIGH,CRITICAL --format table
-')
+		  bat ('docker run -e TRIVY_AUTH_URL="https://ghcr.io" -e GITHUB_TOKEN=%GITHUB_TOKEN% -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image pavithragrblue/complete-e2e-app-success:latest --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table')
                 }
             }
 
