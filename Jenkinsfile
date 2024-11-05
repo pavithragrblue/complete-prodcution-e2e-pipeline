@@ -1,80 +1,38 @@
 pipeline{
-    agent any
-    tools {
+    agents any
+    tools{
         jdk 'Java 17'
         maven 'Maven 3.8.8'
     }
-    environment {
-        APP_NAME = "complete-e2e-app-success"
-        RELEASE = "1.0.1"
+    environments{
+        APP_NAME = "facebook-applications"
+        RELEASE = "2.0.2"
         DOCKER_USER = "pavithragrblue"
-        DOCKER_PASS = 'docker-login'
+        DOCKER_PASS = "docker-login"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-        JENKINS_API_TOKEN = credentials("Jenkins-api-token")
-
+        IMAGE_TAG = "${RELEASE}-{BUILD_NUMBER}"
+        JENKINS_API_TOKEN = (credentialsId: "Jenkins-api-token")
     }
     stages{
-        stage("Cleanup Workspace"){
-            steps {
-                cleanWs()
-            }
-
+        stage("cleanup workspace"){
+        steps{
+            cleanWs()
         }
-    
-        stage("Checkout from SCM"){
-            steps {
-                git branch: 'CICD-Demo', credentialsId: 'pavithragrblue', url: 'https://github.com/dmancloud/complete-prodcution-e2e-pipeline'
-            }
-
-        }
-
-        stage("Build Application"){
-            steps {
-                bat "mvn clean package"
-            }
-
-        }
-
-        stage("Test Application"){
-            steps {
-                bat "mvn test"
-            }
-
-        }
-        stage("Sonarqube Analysis") {
-            steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'Sonarqube-token') {
-                        bat 'mvn clean verify sonar:sonar'
-                    }
-                }
-            }
-
-        }
-        
-        stage("Build & Push Docker Image") {
-            steps {
-                script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
-
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image.push("${IMAGE_TAG}")
-                        docker_image.push('latest')
-                    }
-                }
-            }
-
-        }
-        stage("Trivy Scan") {
-            steps {
-                script {
-		  bat ('docker run -e TRIVY_AUTH_URL="https://ghcr.io" -e GITHUB_TOKEN=%GITHUB_TOKEN% -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image pavithragrblue/complete-e2e-app-success:latest --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table')
-                }
-            }
-
-        }        
     }
+    stage("checkout to git"){
+        steps{
+            git branch: 'CICD-Demo' , credentialsId: 'github-token' , url: 'https://github.com/pavithragrblue/complete-prodcution-e2e-pipeline.git'
+                    }
+    }
+    stage("build application"){
+        steps{
+            bat 'mvn clean package'
+        }
+    }
+    stage("Test application"){
+        steps{
+            bat 'mvn test'
+        }
+    }
+}
 }
