@@ -1,17 +1,17 @@
 pipeline{
-    agents any
-    tools{
+    agent any
+    tools {
         jdk 'Java 17'
         maven 'Maven 3.8.8'
     }
-    environments{
+    environment {
         APP_NAME = "facebook-applications"
         RELEASE = "2.0.2"
         DOCKER_USER = "pavithragrblue"
         DOCKER_PASS = "docker-login"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-        IMAGE_TAG = "${RELEASE}-{BUILD_NUMBER}"
-        JENKINS_API_TOKEN = (credentialsId:"Jenkins-api-token")
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        JENKINS_API_TOKEN = (credentialsId: "Jenkins-api-token")
     }
     stages{
         stage("cleanup workspace"){
