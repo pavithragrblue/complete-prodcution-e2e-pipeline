@@ -60,5 +60,13 @@ pipeline{
             }
 
         }
+        stage("Trivy Scan") {
+            steps {
+                script {
+		   bat ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image pavithragrblue/pavithragrblue/facebook-applications:2.0.2-14 --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+                }
+            }
+
+        }
 }
 }
