@@ -63,7 +63,7 @@ pipeline{
         stage("Trivy Scan") {
             steps {
                 script {
-		   bat 'docker run --rm -v C:/trivy-cache:/root/.cache/ aquasec/trivy image pavithragrblue/pavithragrblue/facebook-applications:2.0.2-14 --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table'
+		   bat 'docker run --rm -v C:/trivy-cache:/root/.cache/ -v //./pipe/docker_engine://./pipe/docker_engine aquasec/trivy image pavithragrblue/facebook-applications:2.0.2-14 --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table'
                 }
             }
 
