@@ -81,7 +81,7 @@ pipeline{
         stage("Trigger CD Pipeline") {
             steps {
                 script {
-                    bat "curl -v -k --user admin:${Jenkins-api-token} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'https://jenkins.dev.dman.cloud/job/gitops-complete-pipeline/buildWithParameters?token=gitops-token'"
+                    bat "curl -v -k --user admin:${Jenkins-api-token} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://localhost:8080/job/CICD-complete//buildWithParameters?token=gitops-token'"
                 }
             }
 
