@@ -26,12 +26,12 @@ pipeline{
     }
     stage("build application"){
         steps{
-            sh 'mvn clean package'
+            bat 'mvn clean package'
         }
     }
     stage("Test application"){
         steps{
-            sh 'mvn test'
+            bat 'mvn test'
         }
     }
         stage("Sonarqube Analysis") {
@@ -63,7 +63,7 @@ pipeline{
         stage("Trivy Scan") {
             steps {
                 script {
-		   sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v C:/trivy-cache:/root/.cache/ aquasec/trivy image pavithragrblue/pavithragrblue/facebook-applications:2.0.2-14 --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table'
+		   bat 'docker run -v /var/run/docker.sock:/var/run/docker.sock -v C:/trivy-cache:/root/.cache/ aquasec/trivy image pavithragrblue/pavithragrblue/facebook-applications:2.0.2-14 --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table'
                 }
             }
 
